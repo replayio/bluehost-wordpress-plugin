@@ -21,7 +21,7 @@ jobs:
   test:
     name: Run Cypress Tests
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'bluehost/bluehost-wordpress-plugin' }}
+    if: ${{ github.repository == 'replayio/bluehost-wordpress-plugin' }}
     steps:
 
       - name: Checkout
@@ -106,7 +106,17 @@ jobs:
         run: npx wp-env start --debug
 
       - name: Run Cypress Tests
-        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        uses: replayio/action-cypress@v0.2.2
+        with:
+          api-key: rwk_5hCFApE9kyWFLvIcxnsKufAp2eW7JErGoTRUAAobIpe
+          browser: 'Replay Firefox'
+          command: npm run test:e2e -- --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+          upload-all: true
+
+      - run: npx @replayio/replay ls --json
+        if: always()
+        shell: bash
+        name: List Replays
 
       - name: Store screenshots of test failures
         if: ${{ failure() }}
