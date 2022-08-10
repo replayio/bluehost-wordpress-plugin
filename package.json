@@ -13,6 +13,7 @@
     "author": "David Ryan <dryanpress@chat.wordpress.org>",
     "license": "GPL-2.0-or-later",
     "dependencies": {
+        "@replayio/cypress": "^0.2.13",
         "@wordpress/a11y": "^2.5.1",
         "@wordpress/api-fetch": "^3.6.2",
         "@wordpress/components": "^8.3.2",
@@ -86,6 +87,7 @@
         "start": "cross-env NODE_ENV=develop wp-scripts start --config ./bin/webpack.develop.js",
         "start:analyzer": "npm run start --webpack-bundle-analyzer",
         "test:e2e": "npx cypress run",
+        "cypress:record": "RECORD_ALL_CONTENT=1 RECORD_REPLAY_METADATA_FILE=$(mktemp) npx cypress run --browser \"Replay Chromium\"",
         "test:unit": "wp-scripts test-unit-js",
         "create:dist": "rsync -r --exclude-from=.distignore . ./bluehost-wordpress-plugin",
         "php-deps": "composer install --no-dev --optimize-autoloader",
